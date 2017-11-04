@@ -20,8 +20,8 @@
    after-steps:                    
      - slack-notifier:
          url: $SLACK_URL
-         username: shan1602
-         channel: notifications
+         username: ramki
+         channel: random
  push-2-docker:
    box: nginx:latest
    
@@ -56,7 +56,7 @@
      - script:
          name: Pull newest docker images
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker pull shan1602/testdevop
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker pull ramakrishna/rama
      - script:
          name: Stop all running containers
          code: |
@@ -68,13 +68,13 @@
      - script:
          name: Remove image behind stopped container
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker rmi shan1602/testdevop:current || echo ‘failed to remove image behind stopped container’
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker rmi ramakrishna/rama/testdevop:current || echo ‘failed to remove image behind stopped container’
      - script:
          name: Tag the pulled image
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker tag shan1602/testdevop:latest shan1602/testdevop:current
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker tag ramakrishna/rama:latest ramakrishna/rama:current
      - script:
          name: Start all services/containers
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker container run --detach -p 97:80 --name ravi-linux shan1602/testdevop:current
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST sudo docker container run --detach -p 333:80 --name ravi-linux ramakrishna/rama:current
 
